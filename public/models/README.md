@@ -1,0 +1,10 @@
+# This directory contains face-api.js models
+# Download models from: https://github.com/justadudewhohacks/face-api.js/tree/master/weights
+
+# Required models:
+# - tiny_face_detector_model-shard1
+# - tiny_face_detector_model-weights_manifest.json
+# - face_landmark_68_model-shard1
+# - face_landmark_68_model-weights_manifest.json
+# - face_expression_model-shard1
+# - face_expression_model-weights_manifest.json

@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Base body styles */
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #581c87 0%, #1e3a8a 50%, #312e81 100%);
+}
+
+/* Animation keyframes */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.4);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Custom animation classes */
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Glassmorphism utility class */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Emotion-specific gradient backgrounds */
+.emotion-happy {
+  background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+}
+
+.emotion-sad {
+  background: linear-gradient(135deg, #3b82f6 0%, #4f46e5 100%);
+}
+
+.emotion-angry {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.emotion-calm {
+  background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
+}
+
+.emotion-fearful {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+}
+
+.emotion-surprised {
+  background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
+}
+
+.emotion-neutral {
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+}
+
+.emotion-jolly {
+  background: linear-gradient(135deg, #fcd34d 0%, #fb923c 100%);
+}
+
+/* Confidence bar animation */
+.confidence-bar {
+  transition: width 0.5s ease-out;
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Video container styling */
+.video-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+.video-container video,
+.video-container canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.video-container canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
