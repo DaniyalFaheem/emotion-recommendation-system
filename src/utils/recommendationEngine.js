@@ -6,6 +6,13 @@
 
 import { recommendations, emotionConfig } from '../data/recommendations';
 
+// Emotion detection thresholds (configurable for tuning)
+const EMOTION_THRESHOLDS = {
+  JOLLY_CONFIDENCE: 0.85,      // Happy confidence above this maps to jolly
+  CALM_CONFIDENCE: 0.70,       // Neutral confidence above this maps to calm
+  CALM_SECONDARY_MAX: 0.20,    // Maximum secondary emotion for calm detection
+};
+
 /**
  * Maps face-api.js expression labels to our emotion system
  * @param {Object} expressions - The expressions object from face-api.js
@@ -34,7 +41,7 @@ export function mapExpressionsToEmotion(expressions) {
   switch (primaryEmotion) {
     case 'happy':
       // High confidence happy -> jolly
-      if (primaryConfidence > 0.85) {
+      if (primaryConfidence > EMOTION_THRESHOLDS.JOLLY_CONFIDENCE) {
         mappedEmotion = 'jolly';
         explanation = 'Extremely positive expression detected - wide smile and raised cheeks indicating joyful mood!';
       } else {
@@ -66,10 +73,10 @@ export function mapExpressionsToEmotion(expressions) {
 
     case 'neutral':
       // High confidence neutral with some relaxation indicators -> calm
-      if (primaryConfidence > 0.7) {
+      if (primaryConfidence > EMOTION_THRESHOLDS.CALM_CONFIDENCE) {
         // Check if secondary emotions are also low (indicating true calmness)
         const secondaryConfidence = sortedEmotions[1]?.[1] || 0;
-        if (secondaryConfidence < 0.2) {
+        if (secondaryConfidence < EMOTION_THRESHOLDS.CALM_SECONDARY_MAX) {
           mappedEmotion = 'calm';
           explanation = 'Relaxed facial features with minimal tension - indicating a calm, peaceful state.';
         } else {

@@ -3,6 +3,9 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
 import { Camera, CameraOff, Loader2, AlertCircle } from 'lucide-react';
 
+// Default detection interval in milliseconds
+const DEFAULT_DETECTION_INTERVAL = 1000;
+
 /**
  * CameraFeed Component
  * Handles webcam access and face-api.js integration for real-time emotion detection
@@ -11,8 +14,14 @@ import { Camera, CameraOff, Loader2, AlertCircle } from 'lucide-react';
  * @param {Function} props.onEmotionDetected - Callback when emotion is detected
  * @param {boolean} props.isActive - Whether the camera should be active
  * @param {Function} props.onToggle - Toggle camera on/off
+ * @param {number} props.detectionInterval - Detection frequency in ms (default: 1000)
  */
-export default function CameraFeed({ onEmotionDetected, isActive, onToggle }) {
+export default function CameraFeed({ 
+  onEmotionDetected, 
+  isActive, 
+  onToggle,
+  detectionInterval = DEFAULT_DETECTION_INTERVAL 
+}) {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const streamRef = useRef(null);
@@ -150,12 +159,11 @@ export default function CameraFeed({ onEmotionDetected, isActive, onToggle }) {
     const ctx = canvas.getContext('2d');
 
     let lastDetectionTime = 0;
-    const detectionInterval = 1000; // Detect every 1 second
 
     const detect = async (timestamp) => {
       if (!streamRef.current) return;
 
-      // Only run detection every 1 second
+      // Only run detection at configured interval
       if (timestamp - lastDetectionTime >= detectionInterval) {
         lastDetectionTime = timestamp;
 
@@ -209,7 +217,7 @@ export default function CameraFeed({ onEmotionDetected, isActive, onToggle }) {
     };
 
     animationRef.current = requestAnimationFrame(detect);
-  }, [onEmotionDetected]);
+  }, [onEmotionDetected, detectionInterval]);
 
   const handleToggle = () => {
     onToggle?.(!isActive);
